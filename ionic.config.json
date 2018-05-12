@@ -1,0 +1,8 @@
+{
+  "name": "SmartContactsClean",
+  "app_id": "6be3b6f2",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
