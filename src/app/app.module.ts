@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular'; 
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
- 
+
 
 ///plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -13,15 +13,13 @@ import { Contacts, Contact } from '@ionic-native/contacts'
 import { Device } from '@ionic-native/device';
 
 
-///firebase
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+///firebase 
+import { AngularFireDatabase } from 'angularfire2/database'; 
 
 
 ///Providers
-import { ContactosProvider, FirebaseProvider } from "../providers/providers.export";
-  
+import { FirebaseProvider, ContactosProvider } from "../providers/providers.export"; 
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBjAv1BPPamEDx-SEP65ZVGoa8uu3dFZLU",
@@ -45,16 +43,18 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage 
+    HomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}.provide,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }.provide,
     ///plugings
     Contact, Contacts, Device,
     ///providers
-    ContactosProvider, FirebaseProvider
+    FirebaseProvider, ContactosProvider,
+    ///FireBase
+    AngularFireDatabase
   ]
 })
-export class AppModule {}
+export class AppModule { }
