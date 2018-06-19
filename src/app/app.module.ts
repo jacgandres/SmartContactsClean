@@ -13,9 +13,10 @@ import { Contacts, Contact } from '@ionic-native/contacts'
 import { Device } from '@ionic-native/device';
 
 
-///firebase 
-import { AngularFireDatabase } from 'angularfire2/database'; 
+///firebase  
 
+///Pipes
+import { UrlSeguroPipe } from "../pipes/url-seguro/url-seguro";
 
 ///Providers
 import { FirebaseProvider, ContactosProvider } from "../providers/providers.export"; 
@@ -34,7 +35,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    UrlSeguroPipe
   ],
   imports: [
     BrowserModule,
@@ -53,8 +55,7 @@ export const firebaseConfig = {
     Contact, Contacts, Device,
     ///providers
     FirebaseProvider, ContactosProvider,
-    ///FireBase
-    AngularFireDatabase
+    ///FireBase 
   ]
 })
 export class AppModule { }

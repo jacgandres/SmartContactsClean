@@ -11,10 +11,9 @@ export class ContactosProvider {
   }
 
   consultarContactos(): Promise<Contact[]> {
-    console.log('Entrando al modulo de los contactos');
-
-    try {
-
+    console.log('Entrando al modulo de los contactos'); 
+    try { 
+       
       console.log("Apunto de hacer consulta");
       let option: any = {
         filter: "",
