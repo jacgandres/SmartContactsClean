@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FotoPipe } from './foto/foto';
 import { UrlSeguroPipe } from './url-seguro/url-seguro';
 @NgModule({
-	declarations: [FotoPipe,
-    UrlSeguroPipe],
+	declarations: [UrlSeguroPipe],
 	imports: [],
-	exports: [FotoPipe,
-    UrlSeguroPipe]
+	exports: [UrlSeguroPipe]
 })
-export class PipesModule {}
+export class PipesModule { }

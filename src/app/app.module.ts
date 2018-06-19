@@ -1,16 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-
-///Pipes 
-import { FotoPipe } from '../pipes/foto/foto';
-import { UrlSeguroPipe } from '../pipes/url-seguro/url-seguro';
 
 ///plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,13 +13,12 @@ import { Contacts, Contact } from '@ionic-native/contacts'
 import { Device } from '@ionic-native/device';
 
 
-///firebase
+///firebase 
+import { AngularFireDatabase } from 'angularfire2/database'; 
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { FirebaseProvider } from '../providers/firebase/firebase';
 
+///Providers
+import { FirebaseProvider, ContactosProvider } from "../providers/providers.export"; 
 
 
 export const firebaseConfig = {
@@ -50,18 +43,18 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ///Pipes
-    FotoPipe,
-    UrlSeguroPipe
+    HomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}.provide,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }.provide,
     ///plugings
-    Contact, Contacts,
-    Device
+    Contact, Contacts, Device,
+    ///providers
+    FirebaseProvider, ContactosProvider,
+    ///FireBase
+    AngularFireDatabase
   ]
 })
-export class AppModule {}
+export class AppModule { }
