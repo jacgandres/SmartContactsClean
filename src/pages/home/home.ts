@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {  Contact } from '@ionic-native/contacts';
-import { IonicPage, Platform } from 'ionic-angular';
+import { Contact } from '@ionic-native/contacts';
+import { IonicPage, Platform, ItemSliding } from 'ionic-angular';
 import { ContactosProvider } from '../../providers/providers.export';
+import { ContactoUsuario } from '../../Models/ContactoUsuario';
 
 @IonicPage()
 @Component({
@@ -9,13 +10,14 @@ import { ContactosProvider } from '../../providers/providers.export';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  Contactos: Contact[] = [];
+  ContactosDirectorio: ContactoUsuario[] = [];
   Evento: any;
   CantidadContactos: number;
-
+  esSeleccionarTodos: boolean;
 
   constructor(private _contactoProvider: ContactosProvider,
     private _platForm: Platform) {
+    this.esSeleccionarTodos = false;
     console.log('iniciar_carga_contactos HomePage');
 
     if (this._platForm.is('cordova')) {
@@ -30,17 +32,27 @@ export class HomePage {
   iniciar_carga_contactos() {
     this._contactoProvider.consultarContactos().then(
       (result) => {
+
         let ordenado: Contact[] = result.sort((obj1, obj2) => {
           return this.organizarLista(obj1, obj2);
         });
+        let cont = 0;
+        ordenado.forEach(element => {
+          let itemContacto: ContactoUsuario =
+          {
+            id: cont++,
+            esSeleccionado: false,
+            Contacto: element
+          };
 
-        this.Contactos = ordenado;
+          this.ContactosDirectorio.push(itemContacto);
+        });
 
-        this.Contactos = result;
-        this.CantidadContactos = this.Contactos.length;
+
+        this.CantidadContactos = this.ContactosDirectorio.length;
 
         console.log("Promesa encontrada");
-        console.log(JSON.stringify(this.Contactos[this.Contactos.length - 1]))
+        console.log(JSON.stringify(this.ContactosDirectorio[this.ContactosDirectorio.length - 1]))
         this.cancelarEventoRefrescar();
       },
       (error) => {
@@ -51,6 +63,13 @@ export class HomePage {
     );
   }
 
+  SeleccionarTodos(opcion) {
+    this.esSeleccionarTodos = opcion;
+
+    this.ContactosDirectorio.forEach(element => {
+       element.esSeleccionado = opcion;
+    });
+  }
 
 
   organizarLista(obj1, obj2) {
@@ -71,20 +90,25 @@ export class HomePage {
     else {
       console.log("no es un disositivo movil")
       this.CantidadContactos = 1;
-      this.Contactos = [];
+      this.ContactosDirectorio = [];
     }
   }
 
-  cancelarEventoRefrescar() {
-    if (this.Evento) { 
+  private cancelarEventoRefrescar() {
+    if (this.Evento) {
       this.Evento.complete();
     }
   }
-  EliminarContacto(contacto, item) {
-
+  EliminarContacto(contacto) {
+    console.log(JSON.stringify(contacto));
   }
-  CombinarContacto(contacto, item) {
-
+  ProcesarContacto(contacto) {
+    console.log(JSON.stringify(contacto));
   }
-  MarcarContacto(contacto, item) { }
+  MarcarContacto(contacto:ContactoUsuario,slidingItem: ItemSliding) {
+    debugger;
+    console.log(JSON.stringify(contacto));
+    contacto.esSeleccionado = true;
+    slidingItem.close();
+  }
 }

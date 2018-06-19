@@ -8,7 +8,6 @@
 
 
 <ion-content padding #contentMenu>
-
     <ion-refresher (ionRefresh)="RefrescarPagina($event)">
         <ion-refresher-content>Se esta refrescando la pagina....</ion-refresher-content>
     </ion-refresher>
@@ -17,43 +16,58 @@
             <ion-col col-6>
                 <button ion-button icon-start block round>
                 <ion-icon name="star"></ion-icon>
-                    Left Icon
+                    Procesar
                 </button>
             </ion-col>
             <ion-col col-6>
-                <button ion-button icon-end block round>
-                     Right Icon
-                <ion-icon name="star"></ion-icon>
-              </button>
+                <button color="secondary" ion-button icon-end block round *ngIf="!esSeleccionarTodos" (click)="SeleccionarTodos(!esSeleccionarTodos);">
+                     Seleccionar
+                    <ion-icon name="star"></ion-icon>
+                </button>
+                <button color="danger" ion-button icon-end block round *ngIf="esSeleccionarTodos" (click)="SeleccionarTodos(!esSeleccionarTodos);">
+                     Limpiar
+                    <ion-icon name="star"></ion-icon>
+                </button>
             </ion-col>
         </ion-row>
     </ion-grid>
     <ion-list>
-        <ion-item-sliding #item *ngFor="let contacto of Contactos">
+        <ion-item-sliding #item *ngFor="let itemContacto of ContactosDirectorio">
             <ion-item>
                 <ion-avatar item-start>
-                    <img [src]="contacto.photos  | urlSeguro : 'url'" class="thumbmail">
+                    <img [src]="itemContacto.Contacto.photos  | urlSeguro : 'url'" class="thumbmail">
                 </ion-avatar>
-                <div text-capitalize padding-top>
-                    <h2 class="MarginTop5px" text-wrap>{{ contacto.displayName }}</h2>
-                    <p *ngFor="let telefono of contacto.phoneNumbers">{{ telefono.value }} - {{ telefono.type }}</p>
-                </div>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-8>
+                            <div text-capitalize padding-top>
+                                <h2 class="MarginTop5px" text-wrap>{{ itemContacto.Contacto.displayName }}</h2>
+                                <p *ngFor="let telefono of itemContacto.Contacto.phoneNumbers">{{ telefono.value }} - {{ telefono.type }}</p>
+                            </div>
+                        </ion-col>
+                        <ion-col color="secundary" col-4 padding *ngIf="itemContacto.esSeleccionado">
+                            <button ion-button color="secondary"> 
+                                    <ion-icon name="ios-checkbox-outline"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </ion-item>
             <ion-item-options side="left">
-                <button ion-button color="danger" (click)="EliminarContacto(contacto,item)">
+                <button ion-button color="danger" (click)="EliminarContacto(itemContacto)">
                   Eliminar
                   <ion-icon name="trash"></ion-icon>
                 </button>
             </ion-item-options>
             <ion-item-options side="right">
-                <button ion-button color="default" (click)="CombinarContacto(contacto,item)">
-                    Combinar
+                <button ion-button color="default" (click)="ProcesarContacto(itemContacto)">
+                    Procesar
                     <ion-icon name="md-git-merge"></ion-icon>
                   </button>
-                <button ion-button color="secondary" (click)="MarcarContacto(contacto,item)">
+                <button ion-button color="secondary" (click)="MarcarContacto(itemContacto,item)">
                     Marcar
                     <ion-icon name="ios-checkbox-outline"></ion-icon>
-                  </button>
+                </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
