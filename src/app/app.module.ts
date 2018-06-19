@@ -19,7 +19,7 @@ import { Device } from '@ionic-native/device';
 import { UrlSeguroPipe } from "../pipes/url-seguro/url-seguro";
 
 ///Providers
-import { FirebaseProvider, ContactosProvider } from "../providers/providers.export"; 
+import { FirebaseProvider, ContactosProvider, LoadingComunProvider } from "../providers/providers.export"; 
 
 
 export const firebaseConfig = {
@@ -55,6 +55,7 @@ export const firebaseConfig = {
     Contact, Contacts, Device,
     ///providers
     FirebaseProvider, ContactosProvider,
+    LoadingComunProvider
     ///FireBase 
   ]
 })

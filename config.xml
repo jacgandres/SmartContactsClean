@@ -3,7 +3,6 @@
     <name>SmartContactsClean</name>
     <description>Una aplicacion para limpiar los contactos repetidos en el directorio telefonico.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.1.104:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -83,6 +82,6 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
-    <allow-navigation href="http://192.168.1.104:8100" />
+    <content src="index.html" />
     <engine name="android" spec="7.0.0" />
 </widget>
