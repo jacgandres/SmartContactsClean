@@ -12,6 +12,7 @@ import {ContactoUsuario }from '../../Models/ContactoUsuario';
 export class HomePage {
   ContactosDirectorio:ContactoUsuario[] = []; 
   ContactosDirectorioScroll:ContactoUsuario[] = []; 
+  GrupoContactos:ContactosAgrupados[]=[];
   Evento:any; 
   CantidadContactos:number; 
   esSeleccionarTodos:boolean; 
@@ -39,9 +40,10 @@ export class HomePage {
         let cont = 0; 
         ordenado.forEach(element =>  {
           let itemContacto:ContactoUsuario =  {
-            id:cont++, 
-            esSeleccionado:false, 
-            Contacto:element
+              id:cont++, 
+              esSeleccionado:false, 
+              Contacto:element, 
+              PrimeraLetra:element.displayName.trim().toUpperCase().substring(0, 1)
           }; 
 
           this.ContactosDirectorio.push(itemContacto); 
@@ -97,17 +99,27 @@ export class HomePage {
       this.Evento.complete(); 
     }
   }
+
   EliminarContacto(contacto) {
     console.log(JSON.stringify(contacto)); 
   }
+
   ProcesarContacto(contacto) {
     console.log(JSON.stringify(contacto)); 
   }
+
   MarcarContacto(contacto:ContactoUsuario, slidingItem:ItemSliding) {
     console.log(JSON.stringify(contacto)); 
     contacto.esSeleccionado = true; 
     slidingItem.close(); 
   }
+
+  DesmarcarContacto(contacto:ContactoUsuario, slidingItem:ItemSliding) {
+    console.log(JSON.stringify(contacto)); 
+    contacto.esSeleccionado = false; 
+    slidingItem.close(); 
+  }
+
   
   doInfinite(infiniteScroll) {
     console.log('Begin async operation: ' + this.ContactosDirectorioScroll.length); 
@@ -127,7 +139,12 @@ export class HomePage {
         console.log('Async operation has ended ' + this.ContactosDirectorioScroll.length); 
         
         infiniteScroll.complete(); 
-      }, 100); 
+      }, 350); 
      
   }
 }
+
+export interface ContactosAgrupados { 
+  Contacto: Contact;
+  PrimeraLetra:string; 
+} 
