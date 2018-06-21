@@ -83,7 +83,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
     <content src="index.html" />
-    <allow-navigation href="http://192.168.1.106:8100" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <engine name="android" spec="7.0.0" />
 </widget>
