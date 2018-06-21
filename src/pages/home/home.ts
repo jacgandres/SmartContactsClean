@@ -1,8 +1,9 @@
 import {Component }from '@angular/core'; 
 import {Contact }from '@ionic-native/contacts'; 
 import {IonicPage, Platform, ItemSliding }from 'ionic-angular'; 
-import {ContactosProvider }from '../../providers/providers.export'; 
-import {ContactoUsuario }from '../../Models/ContactoUsuario'; 
+import {ContactosProvider, LoadingComunProvider} from '../../providers/providers.export'; 
+import {ContactoUsuario} from '../../Models/ContactoUsuario'; 
+import { AppVersion } from '@ionic-native/app-version';
 
 @IonicPage()
 @Component( {
@@ -10,20 +11,33 @@ import {ContactoUsuario }from '../../Models/ContactoUsuario';
   templateUrl:'home.html', 
 })
 export class HomePage {
-  ContactosDirectorio:ContactoUsuario[] = []; 
-  ContactosDirectorioScroll:ContactoUsuario[] = []; 
+  ContactosDirectorio:ContactoUsuario[] = [];  
   GrupoContactos:ContactosAgrupados[]=[];
   Evento:any; 
   CantidadContactos:number; 
   esSeleccionarTodos:boolean; 
+  YearFooter:number=0;
+  NumeroVersion:string="";
+  AppNombre:string="";
 
   constructor(private _contactoProvider:ContactosProvider, 
+              private _loadingCmn: LoadingComunProvider,
+              private _versionApp:AppVersion,
               private _platForm:Platform) {
+
         this.esSeleccionarTodos = false; 
+        this.YearFooter = (new Date()).getFullYear();
         console.log('iniciar_carga_contactos HomePage'); 
 
         if (this._platForm.is('cordova')) {
           this.iniciar_carga_contactos(); 
+          this._versionApp.getAppName().then((name)=>{
+            this.AppNombre=name;
+          });
+
+          this._versionApp.getVersionNumber().then((numero)=>{
+            this.NumeroVersion=numero;
+          })
         }
         else {
           console.log("no es un disositivo movil")
@@ -32,43 +46,70 @@ export class HomePage {
   }
 
   iniciar_carga_contactos() {
+    this._loadingCmn.presentarLoadingDefault();
+
     this._contactoProvider.consultarContactos().then(
-      (result) =>  {
+      (result) =>  { 
+        this.ContactosDirectorio=[];
         let ordenado:Contact[] = result.sort((obj1, obj2) =>  {
           return this.organizarLista(obj1, obj2); 
         }); 
         let cont = 0; 
-        ordenado.forEach(element =>  {
+        let gruposLetras:string[]=[];
+        ordenado.forEach(element =>  { 
           let itemContacto:ContactoUsuario =  {
               id:cont++, 
               esSeleccionado:false, 
               Contacto:element, 
               PrimeraLetra:element.displayName.trim().toUpperCase().substring(0, 1)
-          }; 
+          };  
+          if(gruposLetras.indexOf(itemContacto.PrimeraLetra)==-1)
+            gruposLetras.push(itemContacto.PrimeraLetra);
 
           this.ContactosDirectorio.push(itemContacto); 
         }); 
- 
-        this.ContactosDirectorioScroll = []; 
-        this.ContactosDirectorioScroll.push(... this.ContactosDirectorio.slice(0, 20)); 
+
+        gruposLetras.forEach(grupoLetra => {
+            let grupoContactos:ContactosAgrupados  = 
+            {
+              Contactos : this.ContactosDirectorio.filter(contacto => contacto.PrimeraLetra === grupoLetra ),
+              PrimeraLetra: grupoLetra
+            };
+
+            this.GrupoContactos.push(grupoContactos);
+        });
+  
         this.CantidadContactos = this.ContactosDirectorio.length; 
 
         console.log("Promesa encontrada"); 
         this.cancelarEventoRefrescar(); 
+
+        this._loadingCmn.LoadingView.dismiss(); 
       }, 
       (error) =>  {
         console.log("Hay un error en la pagina del home, promesa obtener contactos"); 
         console.log(JSON.stringify(error)); 
         this.cancelarEventoRefrescar(); 
+        this._loadingCmn.LoadingView.dismiss(); 
       }); 
   }
 
   SeleccionarTodos(opcion) {
+    this._loadingCmn.presentarLoadingDefault();
+
     this.esSeleccionarTodos = opcion; 
 
     this.ContactosDirectorio.forEach(element =>  {
        element.esSeleccionado = opcion; 
     }); 
+
+    this.GrupoContactos.forEach(grupoContacto => {
+      grupoContacto.Contactos.forEach(contacto => {
+        contacto.esSeleccionado = opcion;
+      });
+    });
+
+    this._loadingCmn.LoadingView.dismiss(); 
   }
 
 
@@ -122,7 +163,8 @@ export class HomePage {
 
   
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation: ' + this.ContactosDirectorioScroll.length); 
+      /*
+      console.log('Begin async operation: ' + this.ContactosDirectorioScroll.length); 
       
       setTimeout(() =>  {
         let subArray:any[] = []; 
@@ -140,11 +182,11 @@ export class HomePage {
         
         infiniteScroll.complete(); 
       }, 350); 
-     
+     */
   }
 }
 
 export interface ContactosAgrupados { 
-  Contacto: Contact;
+  Contactos: ContactoUsuario[];
   PrimeraLetra:string; 
 } 

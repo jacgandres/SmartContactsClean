@@ -29,51 +29,54 @@
 
 
 <ion-content padding #contentMenu>
-    <ion-list>
-        <ion-item-sliding #item *ngFor="let itemContacto of ContactosDirectorioScroll">
-            <ion-item>
-                <ion-avatar item-start>
-                    <img [src]="itemContacto.Contacto.photos  | urlSeguro : 'url'" class="thumbmail">
-                </ion-avatar>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-8>
-                            <div text-capitalize padding-top>
-                                <h2 class="MarginTop5px" text-wrap>{{ itemContacto.Contacto.displayName }}</h2>
-                                <p *ngFor="let telefono of itemContacto.Contacto.phoneNumbers">{{ telefono.value }} - {{ telefono.type }}</p>
-                            </div>
-                        </ion-col>
-                        <ion-col color="secundary" col-4 padding *ngIf="itemContacto.esSeleccionado">
-                            <button ion-button color="secondary"> 
+
+    <ion-item-group *ngFor="let grupoContacto of GrupoContactos">
+        <ion-item-divider color="light">Grupo Contactos {{grupoContacto.PrimeraLetra}}: ({{grupoContacto.Contactos.length}})</ion-item-divider>
+        <ion-list>
+            <ion-item-sliding #item *ngFor="let itemContacto of grupoContacto.Contactos">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img [src]="itemContacto.Contacto.photos | urlSeguro : 'url'" class="thumbmail">
+                    </ion-avatar>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-8>
+                                <div text-capitalize padding-top>
+                                    <h2 class="MarginTop5px" text-wrap>{{ itemContacto.Contacto.displayName }}</h2>
+                                    <p *ngFor="let telefono of itemContacto.Contacto.phoneNumbers">{{ telefono.value }} - {{ telefono.type }}</p>
+                                </div>
+                            </ion-col>
+                            <ion-col color="secundary" col-4 padding *ngIf="itemContacto.esSeleccionado">
+                                <button ion-button color="secondary"> 
                                     <ion-icon name="ios-checkbox-outline"></ion-icon>
                             </button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button color="danger" (click)="EliminarContacto(itemContacto)">
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+                <ion-item-options side="left">
+                    <button ion-button color="danger" (click)="EliminarContacto(itemContacto)">
                   Eliminar
                   <ion-icon name="trash"></ion-icon>
                 </button>
-            </ion-item-options>
-            <ion-item-options side="right">
-                <button ion-button color="default" (click)="ProcesarContacto(itemContacto)">
+                </ion-item-options>
+                <ion-item-options side="right">
+                    <button ion-button color="default" (click)="ProcesarContacto(itemContacto)">
                     Procesar
                     <ion-icon name="md-git-merge"></ion-icon>
                   </button>
-                <button ion-button color="secondary" *ngIf="!itemContacto.esSeleccionado" (click)="MarcarContacto(itemContacto,item)">
+                    <button ion-button color="secondary" *ngIf="!itemContacto.esSeleccionado" (click)="MarcarContacto(itemContacto,item)">
                       Marcar
                       <ion-icon name="ios-checkbox-outline"></ion-icon>
                   </button>
-                <button ion-button color="danger" *ngIf="itemContacto.esSeleccionado" (click)="DesmarcarContacto(itemContacto,item)">
+                    <button ion-button color="danger" *ngIf="itemContacto.esSeleccionado" (click)="DesmarcarContacto(itemContacto,item)">
                       Desmarcar
                       <ion-icon name="ios-checkbox-outline"></ion-icon>
                   </button>
-            </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
-
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+    </ion-item-group>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
@@ -81,3 +84,8 @@
         <ion-refresher-content>Se esta refrescando la pagina....</ion-refresher-content>
     </ion-refresher>
 </ion-content>
+<ion-footer>
+    <div text-right>
+        ©{{YearFooter}} ({{NumeroVersion}}) - {{AppNombre}}. All rights reserved.
+    </div>
+</ion-footer>

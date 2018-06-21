@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Contacts, Contact } from '@ionic-native/contacts'
 import { Device } from '@ionic-native/device';
+import { AppVersion } from '@ionic-native/app-version';
 
 
 ///firebase  
@@ -52,7 +53,7 @@ export const firebaseConfig = {
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler }.provide,
     ///plugings
-    Contact, Contacts, Device,
+    Contact, Contacts, Device,AppVersion,
     ///providers
     FirebaseProvider, ContactosProvider,
     LoadingComunProvider
