@@ -2,8 +2,7 @@ import {Component }from '@angular/core';
 import {Contact }from '@ionic-native/contacts'; 
 import {IonicPage, Platform, ItemSliding }from 'ionic-angular'; 
 import {ContactosProvider, LoadingComunProvider} from '../../providers/providers.export'; 
-import {ContactoUsuario} from '../../Models/ContactoUsuario'; 
-import { AppVersion } from '@ionic-native/app-version';
+import {ContactoUsuario} from '../../Models/ContactoUsuario';  
 
 @IonicPage()
 @Component( {
@@ -16,28 +15,17 @@ export class HomePage {
   Evento:any; 
   CantidadContactos:number; 
   esSeleccionarTodos:boolean; 
-  YearFooter:number=0;
-  NumeroVersion:string="";
-  AppNombre:string="";
 
   constructor(private _contactoProvider:ContactosProvider, 
-              private _loadingCmn: LoadingComunProvider,
-              private _versionApp:AppVersion,
+              private _loadingCmn: LoadingComunProvider, 
               private _platForm:Platform) {
 
-        this.esSeleccionarTodos = false; 
-        this.YearFooter = (new Date()).getFullYear();
+        this.esSeleccionarTodos = false;  
         console.log('iniciar_carga_contactos HomePage'); 
 
         if (this._platForm.is('cordova')) {
           this.iniciar_carga_contactos(); 
-          this._versionApp.getAppName().then((name)=>{
-            this.AppNombre=name;
-          });
-
-          this._versionApp.getVersionNumber().then((numero)=>{
-            this.NumeroVersion=numero;
-          })
+           
         }
         else {
           console.log("no es un disositivo movil")

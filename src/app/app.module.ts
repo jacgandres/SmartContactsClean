@@ -4,7 +4,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
+import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from "../pages/register/register";
+import { TabMenuPage } from "../pages/tab-menu/tab-menu";
 
 ///plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -36,7 +38,7 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    HomePage,LoginPage,RegisterPage,TabMenuPage,
     UrlSeguroPipe
   ],
   imports: [
@@ -46,7 +48,7 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage, LoginPage,TabMenuPage, RegisterPage
   ],
   providers: [
     StatusBar,
