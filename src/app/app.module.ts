@@ -14,16 +14,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Contacts, Contact } from '@ionic-native/contacts'
 import { Device } from '@ionic-native/device';
 import { AppVersion } from '@ionic-native/app-version';
-
-
+ 
 ///firebase  
 
 ///Pipes
 import { UrlSeguroPipe } from "../pipes/url-seguro/url-seguro";
 
-///Providers
-import { FirebaseProvider, ContactosProvider, LoadingComunProvider } from "../providers/providers.export"; 
-
+///Providers 
+import { UsuarioProvider } from '../providers/usuario/usuario'; 
+import { ContactosProvider } from "../providers/contactos/contactos";
+import { LoadingComunProvider } from "../providers/loading-comun/loading-comun";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBjAv1BPPamEDx-SEP65ZVGoa8uu3dFZLU",
@@ -57,8 +57,9 @@ export const firebaseConfig = {
     ///plugings
     Contact, Contacts, Device,AppVersion,
     ///providers
-    FirebaseProvider, ContactosProvider,
-    LoadingComunProvider
+    ContactosProvider,
+    LoadingComunProvider,
+    UsuarioProvider
     ///FireBase 
   ]
 })
