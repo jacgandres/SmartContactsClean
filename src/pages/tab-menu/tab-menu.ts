@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, Platform, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AppVersion } from '@ionic-native/app-version';
 
@@ -21,12 +21,14 @@ export class TabMenuPage {
 
 
   constructor(public navCtrl: NavController,
+              private _navParams:NavParams,
               private _versionApp:AppVersion,
               private _platForm:Platform) {
     
     this.YearFooter = (new Date()).getFullYear();
     console.log('iniciar_carga_contactos HomePage'); 
-
+    debugger;
+    let usuario= _navParams.get('UsuarioSistema');
     if (this._platForm.is('cordova')) { 
       this._versionApp.getAppName().then((name)=>{
         this.AppNombre=name;

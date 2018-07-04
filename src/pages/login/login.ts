@@ -2,6 +2,8 @@ import {Component} from "@angular/core";
 import {NavController, AlertController, ToastController, MenuController} from "ionic-angular";
 import {HomePage} from "../home/home";
 import {RegisterPage} from "../register/register";
+import { AutenticacionProvider } from '../../providers/autenticacion/autenticacion';
+import { TabMenuPage } from '../tab-menu/tab-menu';
 
 @Component({
   selector: 'page-login',
@@ -12,6 +14,7 @@ export class LoginPage {
   constructor(public nav: NavController, 
               public forgotCtrl: AlertController, 
               public menu: MenuController, 
+              private _auth: AutenticacionProvider,
               public toastCtrl: ToastController) {
     this.menu.swipeEnable(false);
   }
@@ -23,7 +26,7 @@ export class LoginPage {
 
   // login and go to home page
   login() {
-    this.nav.setRoot(HomePage);
+    this.nav.setRoot(TabMenuPage);
   }
 
   forgotPass() {
@@ -64,4 +67,16 @@ export class LoginPage {
     forgot.present();
   }
 
+
+  public IngresarConFacebook(){
+      debugger; 
+        this._auth.signInWithFacebook().then((result)=>{
+          debugger; 
+          this.nav.setRoot(TabMenuPage,{UsuarioSistema:result});
+        },
+        (error)=>{
+          debugger; 
+        });
+     
+  }
 }

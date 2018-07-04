@@ -14,8 +14,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Contacts, Contact } from '@ionic-native/contacts'
 import { Device } from '@ionic-native/device';
 import { AppVersion } from '@ionic-native/app-version';
+import { Facebook } from '@ionic-native/facebook';
  
 ///firebase  
+import { AngularFireModule } from 'angularfire2'; 
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 ///Pipes
 import { UrlSeguroPipe } from "../pipes/url-seguro/url-seguro";
@@ -24,6 +27,7 @@ import { UrlSeguroPipe } from "../pipes/url-seguro/url-seguro";
 import { UsuarioProvider } from '../providers/usuario/usuario'; 
 import { ContactosProvider } from "../providers/contactos/contactos";
 import { LoadingComunProvider } from "../providers/loading-comun/loading-comun";
+import { AutenticacionProvider } from '../providers/autenticacion/autenticacion';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBjAv1BPPamEDx-SEP65ZVGoa8uu3dFZLU",
@@ -43,7 +47,9 @@ export const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig), 
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,11 +61,13 @@ export const firebaseConfig = {
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler }.provide,
     ///plugings
-    Contact, Contacts, Device,AppVersion,
+    Contact, Contacts, Device,AppVersion,,
+    Facebook,
     ///providers
     ContactosProvider,
     LoadingComunProvider,
-    UsuarioProvider
+    UsuarioProvider,
+    AutenticacionProvider
     ///FireBase 
   ]
 })
