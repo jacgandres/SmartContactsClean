@@ -1,8 +1,9 @@
 import {Component }from '@angular/core'; 
 import {Contact }from '@ionic-native/contacts'; 
-import {IonicPage, Platform, ItemSliding }from 'ionic-angular'; 
-import {ContactosProvider, LoadingComunProvider} from '../../providers/providers.export'; 
+import {IonicPage, Platform, ItemSliding }from 'ionic-angular';  
 import {ContactoUsuario} from '../../Models/ContactoUsuario';  
+import { ContactosProvider } from '../../providers/contactos/contactos';
+import { LoadingComunProvider } from '../../providers/loading-comun/loading-comun';
 
 @IonicPage()
 @Component( {
