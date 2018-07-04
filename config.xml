@@ -97,5 +97,9 @@
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
     <plugin name="cordova-sqlite-storage" spec="^2.3.3" />
+    <plugin name="cordova-plugin-linkedin" spec="^1.2.1">
+        <variable name="APP_ID" value="YOUR_APP_ID" />
+    </plugin>
+    <plugin name="cordova-instagram-plugin" spec="^0.5.7" />
     <engine name="android" spec="6.4.0" />
 </widget>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "995317522238",
+    "firebase_url": "https://smartcleancontacts-9ab34.firebaseio.com",
+    "project_id": "smartcleancontacts-9ab34",
+    "storage_bucket": "smartcleancontacts-9ab34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995317522238:android:7c2c0efe65695604",
+        "android_client_info": {
+          "package_name": "co.com.jacgandres.smartcontactsclean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995317522238-ciaflek5l4avss0ks1o194h6sbed6h2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.com.jacgandres.smartcontactsclean",
+            "certificate_hash": "149647800f52eddd5e3c18f57aaf9f252192abb2"
+          }
+        },
+        {
+          "client_id": "995317522238-uobf2oepg72rk47bisa18o85041a2gq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-rEn9Egn6FxgDmOs-I5Zcr-KQsyndvw4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995317522238-uobf2oepg72rk47bisa18o85041a2gq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
