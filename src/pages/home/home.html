@@ -1,26 +1,28 @@
 <ion-header>
-
-    <ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+                  <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title icon-end>Limpiar Contactos: <small ng-if="CantidadContactos > 0">({{CantidadContactos}})</small>
             <ion-icon name="md-contacts" padding></ion-icon>
         </ion-title>
         <ion-grid>
             <ion-row>
                 <ion-col col-6>
-                    <button ion-button icon-start block round>
-                    <ion-icon name="star"></ion-icon>
-                        Procesar
-                    </button>
+                    <button colof="green" ion-button icon-start block round>
+                        <ion-icon name="star"></ion-icon>
+                            Procesar
+                     </button>
                 </ion-col>
                 <ion-col col-6>
                     <button color="secondary" ion-button icon-end block round *ngIf="!esSeleccionarTodos" (click)="SeleccionarTodos(!esSeleccionarTodos);">
-                        Seleccionar
-                        <ion-icon name="star"></ion-icon>
-                    </button>
+                            Seleccionar
+                            <ion-icon name="star"></ion-icon>
+                        </button>
                     <button color="danger" ion-button icon-end block round *ngIf="esSeleccionarTodos" (click)="SeleccionarTodos(!esSeleccionarTodos);">
-                        Limpiar
-                        <ion-icon name="star"></ion-icon>
-                    </button>
+                            Limpiar
+                            <ion-icon name="star"></ion-icon>
+                        </button>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -28,7 +30,7 @@
 </ion-header>
 
 
-<ion-content padding #contentMenu>
+<ion-content #contentMenu>
 
     <ion-item-group *ngFor="let grupoContacto of GrupoContactos">
         <ion-item-divider color="light">Grupo Contactos {{grupoContacto.PrimeraLetra}}: ({{grupoContacto.Contactos.length}})</ion-item-divider>
@@ -48,31 +50,31 @@
                             </ion-col>
                             <ion-col color="secundary" col-4 padding *ngIf="itemContacto.esSeleccionado">
                                 <button ion-button color="secondary"> 
-                                    <ion-icon name="ios-checkbox-outline"></ion-icon>
-                            </button>
+                                        <ion-icon name="ios-checkbox-outline"></ion-icon>
+                                </button>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-item>
                 <ion-item-options side="left">
                     <button ion-button color="danger" (click)="EliminarContacto(itemContacto)">
-                  Eliminar
-                  <ion-icon name="trash"></ion-icon>
-                </button>
+                      Eliminar
+                      <ion-icon name="trash"></ion-icon>
+                    </button>
                 </ion-item-options>
                 <ion-item-options side="right">
                     <button ion-button color="default" (click)="ProcesarContacto(itemContacto)">
-                    Procesar
-                    <ion-icon name="md-git-merge"></ion-icon>
-                  </button>
+                        Procesar
+                        <ion-icon name="md-git-merge"></ion-icon>
+                      </button>
                     <button ion-button color="secondary" *ngIf="!itemContacto.esSeleccionado" (click)="MarcarContacto(itemContacto,item)">
-                      Marcar
-                      <ion-icon name="ios-checkbox-outline"></ion-icon>
-                  </button>
+                          Marcar
+                          <ion-icon name="ios-checkbox-outline"></ion-icon>
+                      </button>
                     <button ion-button color="danger" *ngIf="itemContacto.esSeleccionado" (click)="DesmarcarContacto(itemContacto,item)">
-                      Desmarcar
-                      <ion-icon name="ios-checkbox-outline"></ion-icon>
-                  </button>
+                          Desmarcar
+                          <ion-icon name="ios-checkbox-outline"></ion-icon>
+                      </button>
                 </ion-item-options>
             </ion-item-sliding>
         </ion-list>
@@ -84,8 +86,3 @@
         <ion-refresher-content>Se esta refrescando la pagina....</ion-refresher-content>
     </ion-refresher>
 </ion-content>
-<ion-footer>
-    <div text-right>
-        ©{{YearFooter}} ({{NumeroVersion}}) - {{AppNombre}}. All rights reserved.
-    </div>
-</ion-footer>
